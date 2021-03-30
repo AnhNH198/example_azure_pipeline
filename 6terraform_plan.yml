@@ -1,0 +1,16 @@
+variables:
+  terraformstoragerg: 'terraformrg'
+  terraformstorageaccount: 'terraformstorageef4319a5'
+  storagekey: 'PipelineWillGetThisValueRuntime'
+
+steps:
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+  displayName: 'Terraform : plan'
+  inputs:
+    command: plan
+    workingDirectory: '$(System.DefaultWorkingDirectory)/_Terraform-CI/drop/Terraform'
+    environmentServiceNameAzureRM: 'Microsoft Azure Sponsorship 6k (7d292bf3-ccaf-46d1-aede-7778d3c017b4)'
+    backendAzureRmResourceGroupName: '$(terraformstoragerg)'
+    backendAzureRmStorageAccountName: '$(terraformstorageaccount) '
+    backendAzureRmContainerName: terraform
+    backendAzureRmKey: '$(storagekey)'

@@ -1,0 +1,18 @@
+# Azure Powershell script to get the storage key
+variables:
+  terraformstoragerg: 'terraformrg'
+  terraformstorageaccount: 'terraformstorageef4319a5'
+
+steps:
+- task: AzurePowerShell@3
+  displayName: 'Azure PowerShell script to get the storage key'
+  inputs:
+    azureSubscription: 'Microsoft Azure Sponsorship 6k (7d292bf3-ccaf-46d1-aede-7778d3c017b4)'
+    ScriptType: InlineScript
+    Inline: |
+     # Using this script we will fetch storage key which is required in terraform file to authenticate backend storage account
+     
+     $key=(Get-AzureRmStorageAccountKey -ResourceGroupName $(terraformstoragerg) -AccountName $(terraformstorageaccount)).Value[0]
+     
+     Write-Host "##vso[task.setvariable variable=storagekey]$key"
+    azurePowerShellVersion: LatestVersion

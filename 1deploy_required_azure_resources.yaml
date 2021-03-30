@@ -1,0 +1,21 @@
+variables:
+  terraformstoragerg: 'terraformrg'
+  terraformstorageaccount: 'terraformstorageef4319a5'
+
+steps:
+- task: AzureCLI@1
+  displayName: 'Azure CLI to deploy required Azure resources'
+  inputs:
+    azureSubscription: 'Microsoft Azure Sponsorship 6k (7d292bf3-ccaf-46d1-aede-7778d3c017b4)'
+    scriptLocation: inlineScript
+    inlineScript: |
+     # this will create Azure resource group
+     call az group create --location southeastasia --name $(terraformstoragerg)
+     
+     call az storage account create --name $(terraformstorageaccount) --resource-group $(terraformstoragerg) --location southeastasia --sku Standard_LRS
+     
+     call az storage container create --name terraform --account-name $(terraformstorageaccount)
+     
+     call az storage account keys list -g $(terraformstoragerg) -n $(terraformstorageaccount)
+     
+     

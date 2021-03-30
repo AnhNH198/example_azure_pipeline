@@ -1,0 +1,9 @@
+variables:
+  appservicename: 'pulterraformwebef4319a5'
+
+steps:
+- task: AzureRmWebAppDeployment@3
+  displayName: 'Azure App Service Deploy: $(appservicename)'
+  inputs:
+    azureSubscription: 'Microsoft Azure Sponsorship 6k (7d292bf3-ccaf-46d1-aede-7778d3c017b4)'
+    WebAppName: '$(appservicename)'
